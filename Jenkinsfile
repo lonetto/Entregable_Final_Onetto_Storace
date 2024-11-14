@@ -12,7 +12,7 @@ pipeline {
             steps {
                 dir('carpeta2') {
                     echo 'Compiling Java code in carpeta2...'
-                    bat 'javac -cp "C:/ruta/a/junit-platform-console-standalone-1.8.1.jar;." *.java' // Ajusta la ruta del archivo jar de JUnit según tu sistema.
+                    bat 'javac -cp "C:/Users/lucas/OneDrive/Escritorio/JUnit/junit-platform-console-standalone-1.8.1.jar;." *.java'
                 }
             }
         }
@@ -21,7 +21,7 @@ pipeline {
             steps {
                 dir('carpeta1') {
                     echo 'Running tests in carpeta1...'
-                    bat 'java -jar C:/ruta/a/junit-platform-console-standalone-1.8.1.jar -cp . --select-package carpeta1'
+                    bat 'java -jar C:/Users/lucas/OneDrive/Escritorio/JUnit/junit-platform-console-standalone-1.8.1.jar -cp . --select-package carpeta1'
                 }
             }
         }
@@ -30,7 +30,7 @@ pipeline {
             steps {
                 dir('carpeta2') {
                     echo 'Running tests in carpeta2...'
-                    bat 'java -jar C:/ruta/a/junit-platform-console-standalone-1.8.1.jar -cp . --select-package carpeta2'
+                    bat 'java -jar C:/Users/lucas/OneDrive/Escritorio/JUnit/junit-platform-console-standalone-1.8.1.jar -cp . --select-package carpeta2'
                 }
             }
         }
@@ -39,7 +39,7 @@ pipeline {
             steps {
                 dir('carpeta3') {
                     echo 'Running tests in carpeta3...'
-                    bat 'java -jar C:/ruta/a/junit-platform-console-standalone-1.8.1.jar -cp . --select-package carpeta3'
+                    bat 'java -jar C:/Users/lucas/OneDrive/Escritorio/JUnit/junit-platform-console-standalone-1.8.1.jar -cp . --select-package carpeta3'
                 }
             }
         }
@@ -69,5 +69,6 @@ pipeline {
         }
     }
 }
+
 
 
