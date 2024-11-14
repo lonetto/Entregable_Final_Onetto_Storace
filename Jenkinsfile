@@ -1,10 +1,6 @@
 pipeline {
     agent any
     
-    environment {
-        // Puedes definir variables de entorno aquí si las necesitas
-    }
-    
     stages {
         stage('Checkout') {
             steps {
@@ -50,7 +46,7 @@ pipeline {
         
         stage('Deploy') {
             when {
-                success()
+                expression { currentBuild.result == 'SUCCESS' }
             }
             steps {
                 echo 'Deployment stage (aquí agrega los pasos de deployment si los necesitas)...'
@@ -73,4 +69,5 @@ pipeline {
         }
     }
 }
+
 
