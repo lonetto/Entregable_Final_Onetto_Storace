@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                // Clona el repositorio desde GitHub
+                // Clonar el repositorio desde GitHub
                 git url: 'https://github.com/lonetto/Entregable_Final_Onetto_Storace.git', branch: 'main'
             }
         }
@@ -12,7 +12,7 @@ pipeline {
                 dir('carpeta2') {
                     // Compilar código Java en carpeta2
                     echo 'Compiling Java code in carpeta2...'
-                    sh 'javac *.java'
+                    bat 'javac *.java'
                 }
             }
         }
@@ -21,7 +21,7 @@ pipeline {
                 dir('carpeta1') {
                     // Ejecutar pruebas en Python para carpeta1
                     echo 'Running Python tests in carpeta1...'
-                    sh 'python3 -m unittest test_general.py'
+                    bat 'python -m unittest test_general.py'
                 }
             }
         }
@@ -30,7 +30,7 @@ pipeline {
                 dir('carpeta2') {
                     // Ejecutar pruebas en Java para carpeta2
                     echo 'Running Java tests in carpeta2...'
-                    sh 'java -cp . org.junit.runner.JUnitCore EmpaquetarPedidoTest ProcesarPagoTest EnviarPedidoTest'
+                    bat 'java -cp . org.junit.runner.JUnitCore EmpaquetarPedidoTest ProcesarPagoTest EnviarPedidoTest'
                 }
             }
         }
@@ -39,7 +39,7 @@ pipeline {
                 dir('carpeta3') {
                     // Ejecutar pruebas en Python para carpeta3
                     echo 'Running Python tests in carpeta3...'
-                    sh 'python3 -m unittest test_fluent_api.py'
+                    bat 'python -m unittest test_fluent_api.py'
                 }
             }
         }
@@ -54,7 +54,7 @@ pipeline {
     post {
         always {
             // Notificación al final de la ejecución
-            mail to: 'progavanzadalg@gmail.com',
+            mail to: 'tu_correo@example.com',
                  subject: "Resultado del Pipeline: ${currentBuild.currentResult}",
                  body: "Revisa el estado del pipeline en Jenkins."
         }
