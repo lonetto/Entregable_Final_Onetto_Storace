@@ -1,68 +1,76 @@
 pipeline {
     agent any
+    
+    environment {
+        // Puedes definir variables de entorno aquí si las necesitas
+    }
+    
     stages {
         stage('Checkout') {
             steps {
-                // Clonar el repositorio desde GitHub
-                git url: 'https://github.com/lonetto/Entregable_Final_Onetto_Storace.git', branch: 'main'
+                git 'https://github.com/lonetto/Entregable_Final_Onetto_Storace.git'
             }
         }
+        
         stage('Build - Carpeta2') {
             steps {
                 dir('carpeta2') {
-                    // Compilar código Java en carpeta2
                     echo 'Compiling Java code in carpeta2...'
-                    bat 'javac *.java'
+                    bat 'javac -cp "C:/ruta/a/junit-platform-console-standalone-1.8.1.jar;." *.java' // Ajusta la ruta del archivo jar de JUnit según tu sistema.
                 }
             }
         }
+        
         stage('Test - Carpeta1') {
             steps {
                 dir('carpeta1') {
-                    // Ejecutar pruebas en Python para carpeta1
-                    echo 'Running Python tests in carpeta1...'
-                    bat 'python -m unittest test_general.py'
+                    echo 'Running tests in carpeta1...'
+                    bat 'java -jar C:/ruta/a/junit-platform-console-standalone-1.8.1.jar -cp . --select-package carpeta1'
                 }
             }
         }
+        
         stage('Test - Carpeta2') {
             steps {
                 dir('carpeta2') {
-                    // Ejecutar pruebas en Java para carpeta2
-                    echo 'Running Java tests in carpeta2...'
-                    bat 'java -cp . org.junit.runner.JUnitCore EmpaquetarPedidoTest ProcesarPagoTest EnviarPedidoTest'
+                    echo 'Running tests in carpeta2...'
+                    bat 'java -jar C:/ruta/a/junit-platform-console-standalone-1.8.1.jar -cp . --select-package carpeta2'
                 }
             }
         }
+        
         stage('Test - Carpeta3') {
             steps {
                 dir('carpeta3') {
-                    // Ejecutar pruebas en Python para carpeta3
-                    echo 'Running Python tests in carpeta3...'
-                    bat 'python -m unittest test_fluent_api.py'
+                    echo 'Running tests in carpeta3...'
+                    bat 'java -jar C:/ruta/a/junit-platform-console-standalone-1.8.1.jar -cp . --select-package carpeta3'
                 }
             }
         }
+        
         stage('Deploy') {
+            when {
+                success()
+            }
             steps {
-                // Despliegue de la aplicación o scripts necesarios
-                echo 'Deploying application...'
-                // Comandos específicos de despliegue (si tienes alguno)
+                echo 'Deployment stage (aquí agrega los pasos de deployment si los necesitas)...'
             }
         }
     }
+    
     post {
         always {
-            // Notificación al final de la ejecución
-            mail to: 'tu_correo@example.com',
-                 subject: "Resultado del Pipeline: ${currentBuild.currentResult}",
-                 body: "Revisa el estado del pipeline en Jenkins."
+            echo 'Pipeline finished.'
         }
         success {
-            echo 'Pipeline ejecutado exitosamente.'
+            echo 'El pipeline ha terminado exitosamente.'
         }
         failure {
             echo 'El pipeline ha fallado.'
+            mail to: 'tu-email@example.com',
+                 subject: 'Pipeline Failed',
+                 body: "El pipeline ha fallado en la ejecución. Verifica Jenkins para más detalles."
         }
     }
 }
+
