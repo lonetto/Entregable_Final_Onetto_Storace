@@ -49,7 +49,9 @@ pipeline {
                 expression { currentBuild.result == 'SUCCESS' }
             }
             steps {
-                echo 'Deployment stage (aquí agrega los pasos de deployment si los necesitas)...'
+                // Aquí es donde se deberían agregar los pasos de despliegue en el futuro, 
+                // como copiar artefactos a un servidor, hacer un push a un entorno de nube, etc.
+                echo 'Deployment stage (aquí agrega los pasos de deployment si se necesita)...'
             }
         }
     }
@@ -69,6 +71,7 @@ pipeline {
         }
     }
 }
+
 
 
 
