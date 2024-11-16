@@ -63,7 +63,7 @@ pipeline {
         }
         failure {
             echo 'El pipeline ha fallado.'
-            mail to: 'tu-email@example.com',
+            mail to: 'progavanzadalg@gmail.com',
                  subject: 'Pipeline Failed',
                  body: "El pipeline ha fallado en la ejecución. Verifica Jenkins para más detalles."
         }
